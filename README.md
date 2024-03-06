@@ -1,27 +1,72 @@
-# glov-api
+# GLOV-API README
 
-## Local Test:
-From the terminal, go to the directory where the project is located and run the `docker-compose up` command.
+## Overview
 
-Open a new terminal and run the following curl commands, for testing api.
+Welcome to the GLOV-API project! This project provides an API for accessing the GLOV endpoint. This README guide will help you set up and test the API locally using Docker and provide instructions for testing the public API.
 
-`curl -X GET http://127.0.0.1:5000/glov_endpoint?stream=false -H "Authorization: USER123"`
+## Local Test
 
-`curl -X GET http://127.0.0.1:5000/glov_endpoint?stream=true -H "Authorization: USER123"`
+### Prerequisites
 
-`curl -X GET http://127.0.0.1:5000/glov_endpoint?stream=false -H "Authorization: USER1234"`
+Make sure you have Docker installed on your machine. You can find instructions for installing Docker [here](https://docs.docker.com/get-docker/).
 
-When we check Docker, we see that 2 containers are running.
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/TUGCE12/glov-api.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd glov-api
+   ```
+
+3. Run the following command to start the API using Docker:
+
+   ```bash
+   docker-compose up
+   ```
+
+### Test Locally
+
+Open a new terminal and use the following curl commands to test the local API:
+
+```bash
+# Test without streaming
+curl -X GET http://127.0.0.1:5000/glov_endpoint?stream=false -H "Authorization: USER123"
+
+# Test with streaming
+curl -X GET http://127.0.0.1:5000/glov_endpoint?stream=true -H "Authorization: USER123"
+
+# Test with a different user
+curl -X GET http://127.0.0.1:5000/glov_endpoint?stream=false -H "Authorization: USER1234"
+```
+
+### Docker Check
+
+Check Docker to ensure that two containers are running. You can use the following command:
+
+```bash
+docker ps
+```
+
+You should see two containers related to the GLOV-API project.
 ![docker images and containers](image.png)
 
-
 ## Public API Test
-Now access the API endpoint is public.
 
-Can test with:
+The API is also available publicly. You can test it using the following curl command:
 
-`curl -X GET https://gaw-xfmleg7qtq-uc.a.run.app/glov_endpoint?stream=false -H "Authorization: USERXXX"`
- 
-ps: Where XXX is a 3-digit numeric ID
+```bash
+# Replace XXX with a 3-digit numeric ID
+curl -X GET https://gaw-xfmleg7qtq-uc.a.run.app/glov_endpoint?stream=false -H "Authorization: USERXXX"
+```
+
+## Important Notes
+
+- **Authorization:** Ensure you replace USERXXX with a valid 3-digit numeric ID when testing the public API.
 
 Thank you!
