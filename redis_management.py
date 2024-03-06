@@ -1,7 +1,15 @@
 import redis
 from datetime import datetime, timedelta
+import os
+from dotenv import load_dotenv
 
-r = redis.Redis(host='localhost', port=6379, decode_responses=True)
+load_dotenv()
+
+# Load environment variables from .env file
+REDIS_HOST = os.environ.get("REDIS_HOST")
+REDIS_PORT = int(os.environ.get("REDIS_PORT"))
+
+r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 
 threshold = timedelta(minutes=1)
 
@@ -12,7 +20,7 @@ def update_redis_data(user_identity:str):
         user_digit = int(user_identity[5:])
         group = 10 if int(user_digit / 100) == 0 else int(user_digit / 100)
         r.hset(user_identity, mapping={
-            "visit": 0,
+            "visit": 1,
             "last_visit_time": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "rate_limit_left": 3,
             "group": group

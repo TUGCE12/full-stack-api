@@ -3,8 +3,12 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import time
 import json
+import os
+from dotenv import load_dotenv
 
 from redis_management import update_redis_data, r
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -29,7 +33,7 @@ limiter = Limiter(
     key_func=lambda: g.user_identity,
     app=app,
     default_limits=[f"4 per minute"],
-    storage_uri="redis://localhost:6379",
+    storage_uri=os.environ.get("REDIS_URI"),
     strategy="fixed-window",
 )
 
@@ -76,4 +80,8 @@ def glov_endpoint():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    # for debugging locally
+	# app.run(debug=True, host='0.0.0.0',port=5000)
+	
+	# for production
+	app.run(host=os.environ.get("APP_RUN_IP"), port=int(os.environ.get("APP_RUN_PORT")))

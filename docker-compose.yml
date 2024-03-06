@@ -1,11 +1,18 @@
 version: '3'
+
 services:
-  web:
-    build:
-      context: .
+  redis:
+    image: "redis/redis-stack:latest"
+    container_name: "flamboyant_mayer"
     ports:
+      - "6379:6379"
+
+  web:
+    build: .
+    container_name: web
+    ports: 
       - "5000:5000"
+    volumes:
+      - .:/code
     depends_on:
       - redis
-  redis:
-    image: "redis:latest"
