@@ -1,6 +1,8 @@
 FROM python:3.9
-WORKDIR /code
-COPY requirements.txt /code
+WORKDIR .
+COPY requirements.txt /.
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . /code
-CMD pyhton flask-app.py 
+COPY .env /.
+COPY redis_management.py /.
+COPY flask_app.py /.
+CMD python flask_app.py 
