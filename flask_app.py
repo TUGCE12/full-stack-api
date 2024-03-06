@@ -12,6 +12,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
+# TODO: WSGI with Nginx
 
 @app.before_request
 def get_userid():
