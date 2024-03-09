@@ -1,4 +1,4 @@
-# GLOV-API README
+# FULL STACK API
 
 ## Overview
 
